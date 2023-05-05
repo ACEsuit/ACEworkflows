@@ -2,15 +2,16 @@
 using Distributed 
 addprocs(10)
 
-@everywhere begin
-   using Pkg; Pkg.activate(@__DIR__()); Pkg.instantiate()
-   using ACE1pack, JuLIP, LinearAlgebra, PrettyTables
-end
+@everywhere using Pkg
+@everywhere Pkg.activate(@__DIR__())
+@everywhere Pkg.instantiate()
+@everywhere using ACE1pack, JuLIP, LinearAlgebra, PrettyTables
 
 # the dataset is provided via ACE1pack artifacts as a convenient benchmarkset
 datapath = joinpath(ACE1pack.artifact("ZuoEtAl2020"), "ZuoEtAl2020")
 syms = [:Ni, :Cu, :Li, :Mo, :Si, :Ge]
 
+totaldegree_tiny = [ 18, 14, 10 ]   # very small model: ~ 100  basis functions
 totaldegree_sm = [ 20, 16, 12 ]   # small model: ~ 300  basis functions
 totaldegree_lge = [ 25, 21, 17 ]  # large model: ~ 1000 basis functions              
 

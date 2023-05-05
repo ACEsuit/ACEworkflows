@@ -11,8 +11,7 @@ end
 
 
 datapath = joinpath(ACE1pack.artifact("ZuoEtAl2020"), "ZuoEtAl2020")
-# syms = [:Ni, :Cu, :Li, :Mo, :Si, :Ge]
-syms = [ :Si, :Ge]
+syms = [:Ni, :Cu, :Li, :Mo, :Si, :Ge]
 rcuts = Dict(:Ni => 4.0, :Cu => 3.9, :Li => 5.1, 
              :Mo => 5.2, :Si => 4.7, :Ge => 5.1)
 
