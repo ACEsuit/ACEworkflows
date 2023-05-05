@@ -1,3 +1,9 @@
+#
+# This script compares a few experimental basis functions, this is only of 
+# interest to developers for now. 
+#
+
+
 using Distributed 
 addprocs(10)
 
