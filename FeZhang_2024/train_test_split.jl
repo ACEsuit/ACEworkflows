@@ -1,3 +1,5 @@
+using ACE1pack, JuLIP, Random 
+
 
 function train_test_split(data, test_pct = 0.2)
    cfgtypes = unique([ get_data(at,"config_type") for at in data])
@@ -20,3 +22,16 @@ function train_test_split(data, test_pct = 0.2)
    end   
    return train_data, test_data 
 end
+
+
+##
+
+
+data_file = @__DIR__() * "/Fe_data.xyz"
+data = read_extxyz(data_file)
+training_data, testing_data = train_test_split(data, 0.1)
+@assert length(data) == length(training_data) + length(testing_data)
+@assert isempty(setdiff(setdiff(data, training_data), testing_data))
+
+JuLIP.write_extxyz(@__DIR__() * "/Fe_train.xyz", training_data)
+JuLIP.write_extxyz(@__DIR__() * "/Fe_test.xyz", testing_data)
