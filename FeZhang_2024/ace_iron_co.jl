@@ -80,22 +80,12 @@ A, Y, W = h5open(path_lsq_sys, "r") do file
 end
 
 ## 
-# compute a lasso path 
 
 P = ACE1pack._make_prior(model, 2, nothing)
 Ap = Diagonal(W) * (A / P) 
 Yp = W .* Y
 
-# lassopath = fit(LassoPath, Ap, Yp, 
-#                standardize = false, intercept = false,
-#                λminratio=1e-6, randomize=false, stopearly=false, 
-#                nλ = 1000, 
-#                cd_tol=1e-5)
-
-
-##
-
-solver = ACEfit.RRQR(rtol = 1e-12)
+solver = ACEfit.RRQR(rtol = 1e-13)
 result = ACEfit.linear_solve(solver, Ap, Yp)
 c = P \ result["C"]
 ACE1pack._set_params!(model, c)
