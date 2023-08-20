@@ -1,5 +1,3 @@
-@info "BEGIN LISTING 1"
-
 using ACEpotentials
 data, _, _ = ACEpotentials.example_dataset("TiAl_tutorial")
 model = acemodel(elements = [:Ti, :Al],
