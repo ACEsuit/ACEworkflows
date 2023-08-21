@@ -5,35 +5,24 @@
 
 
 using Distributed 
-addprocs(10)
-
-@everywhere begin
-   using Pkg; Pkg.activate(@__DIR__()); Pkg.instantiate()
-   using ACE1pack, JuLIP, LinearAlgebra, PrettyTables
-end
+addprocs(10, exeflags="--project=$(Base.active_project())")
+@everywhere using ACEpotentials, JuLIP, LinearAlgebra, PrettyTables
 
 ##
 
-using ACE1pack, JuLIP, LinearAlgebra, PrettyTables
-
 # the dataset is provided via ACE1pack artifacts as a convenient benchmarkset
-datapath = joinpath(ACE1pack.artifact("ZuoEtAl2020"), "ZuoEtAl2020")
 syms = [:Ni, :Cu, :Li, :Mo, :Si, :Ge]
 
 totaldegree_sm = [ 20, 16, 12 ]   # small model: ~ 300  basis functions
 totaldegree_lge = [ 25, 21, 17 ]  # large model: ~ 1000 basis functions              
-totaldegree = totaldegree_sm
+totaldegree = totaldegree_lge
 
+# In the high data regime most models behave similarly. 
+# We are interested in the large basis, low data regime in these tests. 
 # use data_step = 5-10 for medium size dataset, 20-50 for small dataset
-data_step = 10    
+data_step = 20    
 
 ## 
-
-# for these problems, virtually all solvers give the same result 
-# since the regularisation is all but irrelevant. 
-# solver = ACEfit.RRQR(; rtol=1e-9)
-# solver = ACEfit.BayesianLinearRegressionSVD()
-solver = ACEfit.SKLEARN_BRR(; n_iter = 1_000)
 
 labels = ["dirty", "pure2b", "clean"]
 _pure2b = Dict("dirty" => false, "pure2b" => true, "clean" => false)
@@ -42,8 +31,7 @@ err = Dict([b => Dict("E" => Dict(), "F" => Dict()) for b in labels]...)
 
 for sym in syms 
    @info("---------- fitting $(sym) ----------")
-   train = JuLIP.read_extxyz(joinpath(datapath, "$(sym)_train.xyz"))
-   test = JuLIP.read_extxyz(joinpath(datapath, "$(sym)_test.xyz"))
+   train, test, _ = ACEpotentials.example_dataset("Zuo20_$sym")
    train = train[1:data_step:end]
 
    # specify the models 
@@ -55,10 +43,10 @@ for sym in syms
       @info("$sym, $label, length = $(length(model.basis))")
 
       # train the model 
-      ACE1pack.acefit!(model, train; solver=solver, mode=:distributed)
+      acefit!(model, train; solver=ACEfit.BLR())
    
       # compute and store errors for later visualisation
-      err_  = ACE1pack.linear_errors(test,  model)
+      err_  = ACEpotentials.linear_errors(test,  model)
       err[label]["E"][sym] =  err_["mae"]["set"]["E"] * 1000
       err[label]["F"][sym] =  err_["mae"]["set"]["F"]
    end
@@ -84,7 +72,3 @@ pretty_table(e_table; header = header)
 println("Force Error")         
 pretty_table(f_table; header = header)
 
-##
-
-# pretty_table(e_table, backend = Val(:latex), label = "Energy MAE", header = header)
-# pretty_table(f_table, backend = Val(:latex), label = "Forces MAE", header = header)
