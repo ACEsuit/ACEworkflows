@@ -2,7 +2,9 @@ The script `fit_model.jl` fits the Silicon potential reported in `ACEpotentials.
 The dataset was taken from
 
 ```
-Bartók, Albert P., James Kermode, Noam Bernstein, and Gábor Csányi. "Machine learning a general-purpose interatomic potential for silicon." Physical Review X 8, no. 4 (2018): 041048.
+Bartók, Albert P., James Kermode, Noam Bernstein, and Gábor Csányi.
+"Machine learning a general-purpose interatomic potential for silicon."
+Physical Review X 8, no. 4 (2018): 041048.
 ```
 
 and can be downloaded from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1250555.svg)](https://doi.org/10.5281/zenodo.1250555) under `models/GAP/gp_iter6_sparse9k.xml.xyz`
