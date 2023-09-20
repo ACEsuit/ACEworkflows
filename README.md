@@ -6,7 +6,7 @@ Workflow Examples for ACE Models. In this repo we will collect example scripts u
 
 - Zuo2020Benchmark : fit the benchmark datasets from (Zuo et al. 2020) and compare against, GAP, MTP. 
 - TiO2_2016 (WIP) : a first attempt to refit the TiO2 dataset from (Artrith 2016)
--`Silicon_2023/fit_model.jl` refit of the Si database from (Bartok-Partay et al. 2018)
+- Silicon_2023 : a refit of the Si database from (Bartok-Partay et al. 2018)
 
 ## `ACEpotentials.jl` article 
 
