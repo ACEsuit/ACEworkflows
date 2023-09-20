@@ -18,7 +18,7 @@ import sys
 pot_name = sys.argv[1]
 
 mode = 'LAMMPS'
-# mode = 'pyjulip'
+mode = 'pyjulip'
 assert mode in ('LAMMPS', 'pyjulip')
 
 # via LAMMPS
