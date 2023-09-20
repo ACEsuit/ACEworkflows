@@ -23,7 +23,7 @@ pip3 install matscipy
 cd $HOME
 git clone https://github.com/libAtoms/matscipy.git
 cd -
-python3 $HOME/matscipy/scripts/fracture_mechanics/quasistatic_fracture.py <pot_name>
+python3 $HOME/matscipy/scripts/fracture_mechanics/quasistatic_crack.py <pot_name>
 ```
 
 where `<pot_name>` is the basename of the ACE model fitted above, e.g. `Si_4_20` if using the `fit_model.jl` script unmodified. The quasi-static fracture simulation parameters are taken from the file `params.py` in this directory, which needs to be the current working directory when you run the script.
