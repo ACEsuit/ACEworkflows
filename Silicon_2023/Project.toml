@@ -1,0 +1,12 @@
+[deps]
+ACE1x = "5cc4c08c-8782-4a30-af6d-550b302e9707"
+ACEpotentials = "3b96b61c-0fcc-4693-95ed-1ef9f35fcc53"
+Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PrettyTables = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
+
+[compat]
+julia = "1.9.2"
+ACEpotentials = "0.6.0" # fix to 0.6.1 !!!
+ACE1x = "0.1.8"
+PrettyTables = "2.2.7"
